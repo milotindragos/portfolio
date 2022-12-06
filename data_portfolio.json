@@ -1,0 +1,152 @@
+{
+    "name": "Dragos Milotin",
+    "working": "I have been working in an architecture practice. During this time, I have developed different skills ranging from Design to Presentation (such are rendering, creating animations and video editing) all the way up to Programming (using tools and languages such as NodeJS, Docker, REST APIs, Revit API, C# etc) to become an invaluable member of the team. I have learned software development and hardware as well as I have even built my own render farm. I have done all of this as I believe without mastering the tools you use you cannot master the field in which you work. ",
+    "this": "This resume is hosted in a GitHub Gist",
+    "certifications": {
+        "OAR": "2013 - Architect OAR, Romania EU",
+        "RIBA": "2018 - RIBA  Chartered Architect, UK",
+        "ARB": "2018 - ARB Registered Architect, UK",
+        "LEED": "2016 - LEED AP BD+C, USA",
+        "BIM": "2017 - BRE BIM PIM TIM, UK",
+        "ACP": "2018 - Revit Architecture Certified Professional (ACP)"
+    },
+    "activity": {
+        "DSBA Architecture": {
+            "period": "2010-2012",
+            "description": "3D Modelling, architectural visualization for Taiwan Taichung Tower that has won first place during the design phase of the competition | Bucharest Romania EU",
+            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
+            "url": "https://www.archdaily.com/89589/taiwan-tower-competition-winner-dsba-mihai-carciun-and-upgrade-studio"
+        },
+        "Epstein Architecture": {
+            "period": "2014-2016",
+            "description": "Architect, LEED AP BD+C , Peer Review and BIM Manager  | Bucharest Romania EU",
+            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
+            "url": "https://youtu.be/u7Hw0v0cOYY"
+        },
+        "RINO Architecture": {
+            "period": "2012-2013",
+            "description": "The Pecica Exhibition Hall is the first project I have fully created in Grasshopper that has gone from Design to Construction | Bucharest Romania EU",
+            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
+            "url": "https://www.archdaily.com/455040/digital-museum-claudiu-ionescu"
+        },
+        "Foster and Partners": {
+            "period": "2016-2018",
+            "description": "BIM Coordinator  | London UK",
+            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
+            "url": "https://www.egi.co.uk/news/canary-wharf-group-plans-mixed-use-tower-scheme/"
+        },
+        "HOK": {
+            "period": "2018-today",
+            "description": "Architect, BIM Coordinator  | London UK",
+            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
+            "url": "https://www.bbc.co.uk/news/uk-england-tyne-54902402"
+        },
+        "Dragos Milotin PFA": {
+            "period": "2013-2016",
+            "description": "I have owned my own company that has allowed me to work as a CGI Artist as well as doing BIM/3D Modelling | Bucharest Romania EU",
+            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
+            "url": "https://youtu.be/gWSnuAGoH94"
+        },
+        "UKDynUG Hackathon": {
+            "period": "2019",
+            "description": "Dynamo BIM Hackathon showing how to use an iPad to request a remote server to run a Dynamo Script and return the geometry via GET request. The geometry, in this case a simple cube, is then imported into the Shapr3D App to continue modeling on an iPad.",
+            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
+            "url": "https://youtu.be/rWhr3s4P2Rg"
+        }
+    },
+    "skills": {
+        "Javascript": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "JS Frameworks": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "Swift": {
+            "level": "beginner",
+            "type": "programming"
+        },
+        "NodeJE": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "Docker": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "Bash": {
+            "level": "advanced",
+            "type": "programming"
+        },
+        "Git": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "Python": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "3DsMaxScript": {
+            "level": "beginner",
+            "type": "programming"
+        },
+        "Dynamo": {
+            "level": "advanced",
+            "type": "programming"
+        },
+        "Grasshopper": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "C#": {
+            "level": "beginner",
+            "type": "programming"
+        },
+        "REST API": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "Revit API": {
+            "level": "intermediate",
+            "type": "programming"
+        },
+        "Affinity Suite": {
+            "level": "advanced",
+            "type": "design"
+        },
+        "Revit": {
+            "level": "advanced",
+            "type": "design"
+        },
+        "Rhino": {
+            "level": "advanced",
+            "type": "design"
+        },
+        "Vray": {
+            "level": "advanced",
+            "type": "design"
+        },
+        "3DsMax": {
+            "level": "advanced",
+            "type": "design"
+        },
+        "Adobe Suite": {
+            "level": "advanced",
+            "type": "design"
+        },
+        "Solibri": {
+            "level": "intermediate",
+            "type": "design"
+        },
+        "Navisworks": {
+            "level": "intermediate",
+            "type": "design"
+        }
+        ,
+        "SketchUp": {
+            "level": "beginner",
+            "type": "design"
+        }
+    }
+}

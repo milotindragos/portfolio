@@ -46,12 +46,6 @@
             "description": "I have owned my own company that has allowed me to work as a CGI Artist as well as doing BIM/3D Modelling | Bucharest Romania EU",
             "imageURL": "https://raw.githubusercontent.com/milotindragos/portfolio/main/lib_images/img_pfa.jpg",
             "url": "https://youtu.be/gWSnuAGoH94"
-        },
-        "UKDynUG Hackathon": {
-            "period": "2019",
-            "description": "Dynamo BIM Hackathon showing how to use an iPad to request a remote server to run a Dynamo Script and return the geometry via GET request. The geometry, in this case a simple cube, is then imported into the Shapr3D App to continue modeling on an iPad.",
-            "imageURL": "https://images.adsttc.com/media/images/529f/d5e1/e8e4/4ef5/dc00/004b/slideshow/Portada.jpg?1386206669",
-            "url": "https://youtu.be/rWhr3s4P2Rg"
         }
     },
     "skills": {

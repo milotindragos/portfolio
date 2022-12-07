@@ -1,0 +1,1097 @@
+{
+  "Uuid": "5718ef7b-ff2b-4651-b6cb-a220dea5fc46",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "dragos.milotin__2022-portfolio",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "FileSystem.FileExists": {
+        "Key": "DSCore.IO.FileSystem",
+        "Value": "DSCoreNodes.dll"
+      },
+      "FileSystem": {
+        "Key": "DSCore.IO.FileSystem",
+        "Value": "DSCoreNodes.dll"
+      },
+      "FileSystem.ReadText": {
+        "Key": "DSCore.IO.FileSystem",
+        "Value": "DSCoreNodes.dll"
+      },
+      "Parse": {
+        "Key": "JsonData.Utilities.Parse",
+        "Value": "JsonData.dll"
+      },
+      "JsonObject": {
+        "Key": "JsonData.Elements.JsonObject",
+        "Value": "JsonData.dll"
+      },
+      "Dictionary": {
+        "Key": "DesignScript.Builtin.Dictionary",
+        "Value": "DesignScriptBuiltin.dll"
+      },
+      "List.GetItemAtIndex": {
+        "Key": "List",
+        "Value": "BuiltIn.ds"
+      },
+      "List": {
+        "Key": "List",
+        "Value": "BuiltIn.ds"
+      },
+      "JsonObject.SortByKeyValue": {
+        "Key": "JsonData.Elements.JsonObject",
+        "Value": "JsonData.dll"
+      },
+      "String": {
+        "Key": "DSCore.String",
+        "Value": "DSCoreNodes.dll"
+      },
+      "String.String": {
+        "Key": "DSCore.String",
+        "Value": "DSCoreNodes.dll"
+      },
+      "String.ToUpper": {
+        "Key": "DSCore.String",
+        "Value": "DSCoreNodes.dll"
+      },
+      "List.Lac": {
+        "Key": "List",
+        "Value": "BuiltIn.ds"
+      },
+      "JsonObject.ToDictionary": {
+        "Key": "JsonData.Elements.JsonObject",
+        "Value": "JsonData.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.DoubleSlider, CoreNodeModels",
+      "NodeType": "NumberInputNode",
+      "NumberType": "Double",
+      "MaximumValue": 5.0,
+      "MinimumValue": 0.0,
+      "StepValue": 1.0,
+      "InputValue": 0.0,
+      "Id": "790ccf2a1f264d2187c04099fff07667",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "156d1b22ee2b4a28885e5852d59879b9",
+          "Name": "",
+          "Description": "Double",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "A slider that produces numeric values."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import sys\r\nsys.path.append(r'C:\\Program Files (x86)\\IronPython 2.7\\Lib')\r\n\r\nimport urllib\r\nimport urllib2\r\nfrom urllib2 import Request\r\n\r\nurl = 'https://raw.githubusercontent.com/milotindragos/portfolio/main/data_portfolio.json'\r\nvalues = {}\r\n\r\ndata = urllib.urlencode(values)\r\nreq = Request(url,data)  # as data is provided the method below will be a POST, NO data will have a method of GET\r\n\r\n# START TESTS\r\nhas = req.has_data()\r\nmethod = req.get_method()\r\n# END TESTS\r\n\r\nresponse = req.get_data()\r\n#the_page = response.read()\r\n\r\nf = urllib2.urlopen(url)\r\n\r\nOUT = f.read()",
+      "VariableInputPorts": true,
+      "Id": "d7818ac3bba24ab6b41f4c42e8788b09",
+      "Inputs": [
+        {
+          "Id": "7f9bef3a20274e3a9ca6d20195154c30",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0dc319a35f704e18a5d3d3e8046dd725",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Copyright(c) 2020, Dragos Milotin\r\n# @milotindragos, http://archi.tools\r\n\r\n# START: DEFINE IMPORTS\r\nimport sys\r\nsys.path.append(r'C:\\Program Files (x86)\\IronPython 2.7\\Lib')\r\n\r\nimport urllib2\r\nimport webbrowser\r\n\r\nimport clr\r\nclr.AddReference(\"System.Drawing\")\r\nfrom System.Drawing import Point, Size, Font, FontStyle\r\nclr.AddReference(\"System.Windows.Forms\")\r\nfrom System.Windows.Forms import Application, Form, PictureBox, PictureBoxSizeMode, Label, Button, DialogResult\r\n# END: DEFINE IMPORTS\r\n\r\n# START: DEFINE INPUTS\r\nboolean = IN[0]\r\nmessage = IN[1]\r\nimageURL = IN[2]\r\nportfolioItemURL = IN[3]\r\n\r\n# END: DEFINE INPUTS\r\n\r\n# START: DEFINE CLASSES\r\nclass HelloWorldForm(Form):\r\n\r\n    def __init__(self):\r\n        self.Text = 'Hello World'\r\n        self.Name = 'Hello World'\r\n        self.Height = 1000\r\n        self.Width = 800\r\n        \r\n        self.image = PictureBox()\r\n        self.image.Location = Point(40, 40)\r\n        self.image.Size = Size(700, 700)\r\n        self.image.SizeMode = PictureBoxSizeMode.Zoom\r\n        self.image.Load(imageURL)\r\n        self.Controls.Add(self.image)\r\n        \r\n    \tself.label = Label()\r\n    \tself.label.Text = message\r\n    \tself.label.Font = Font(\"Arial\", 12,FontStyle.Bold)\r\n        self.label.Location = Point(40, 850)\r\n        self.label.MaximumSize = Size(700, 0)\r\n        self.label.AutoSize = 1\r\n        self.Controls.Add(self.label)\r\n          \r\n        self.button = Button()\r\n    \tself.button.Text = \"Click button to view project details\"\r\n        self.button.DialogResult = DialogResult.OK\r\n    \tself.button.Font = Font(\"Arial\", 11,FontStyle.Regular)\r\n        self.button.Location = Point(40, 750)\r\n        self.button.Height = 40\r\n        self.button.Width = 700\r\n        self.button.Click += self.buttonPressed\r\n        self.Controls.Add(self.button)\r\n\r\n        \r\n    def buttonPressed(self, sender, args):\r\n\t\turl = portfolioItemURL\r\n\t\thtml = webbrowser.open(url, new=2)\r\n\t\tself.Close()\r\n\r\nform = HelloWorldForm()\r\n# END: DEFINE CLASSES\r\n\r\n# START: TEST FOR INPUT BY USER\r\nif boolean == 1:\r\n   Application.Run(form);\r\n   text = \"Click the button to see something interesting and close the form!\";\r\nelse:\r\n   text = \"Waiting for user to say yes!\";\r\n# END: TEST FOR INPUT BY USER\r\n\r\nOUT = text\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "VariableInputPorts": true,
+      "Id": "c6cf72a803b44ea5a0a9c053dca6641c",
+      "Inputs": [
+        {
+          "Id": "549987c58fcf468e8026c5beb0c11fc9",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a92de6c1b6a14bf98716f6d100648861",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "8dd4703fbe9845a8b15c839a354bac3d",
+          "Name": "IN[2]",
+          "Description": "Input #2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "21f2605203214b678c79567d5d8a1736",
+          "Name": "IN[3]",
+          "Description": "Input #3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4cf1400099cf49c0803014fc95d0acfe",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* This function will require a Dictionary from a JSON Object to work.\nIt also requires a Slider/Integer to get one item from a list of skills.\n*/\n\ndef GetSkillsFilteredList (JSONdictionary, proficiency)\n{\n\n\nskillsList = Dictionary.ValueAtKey(JSONdictionary, \"skills\");\na = Dictionary.Keys(skillsList);\nb = Dictionary.Values(skillsList);\nc1 = Dictionary.ValueAtKey(b, \"type\");\nc2 = Dictionary.ByKeysValues(a, c1);\nc3 = Dictionary.Values(c2);\nc4 = List.GroupByKey(a, c3);\nc5 = Dictionary.ValueAtKey(c4, \"unique keys\");\nc6 = Dictionary.ValueAtKey(c4, \"groups\");\n\nd1 = Dictionary.ValueAtKey(b, \"level\");\nd2 = Dictionary.ByKeysValues(a, d1);\nd3 = Dictionary.Values(d2);\nd4 = List.GroupByKey(a, d3);\nd5 = Dictionary.ValueAtKey(d4, \"unique keys\") == proficiency;\nd6 = Dictionary.ValueAtKey(d4, \"groups\");\nd7 = List.FilterByBoolMask(d6, d5);\nd8 = Dictionary.ValueAtKey(d7, \"in\");\n\ne1 = List.AllIndicesOf(c6[0], d8);\ne2 = String.Join(\" | \", (List.Flatten(List.GetItemAtIndex(c6[0], e1))));\n\nf1 = List.AllIndicesOf(c6[1], d8);\nf2 = String.Join(\" | \", (List.Flatten(List.GetItemAtIndex(c6[1], f1))));\n\nk1 = c5[0] + \" tools: \" + e2;\nk2 = c5[1] + \" tools: \" + f2;\n\nk = [k1, k2];\n\nstatement = ((proficiency == \"ninja\")?\"I have not yet reached ninja level yet :)\":k);\n\nreturn = statement;\n};",
+      "Id": "9bf859d44f024e41b288c094bfe17e6d",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* This function will require a Dictionary from a JSON Object to work.\nIt also requires a Slider/Integer to get one item from a list of activities.\n*/\n\ndef GetActivityItem (JSONdictionary, ActivityItem)\n{\n\nactivityList = Dictionary.ValueAtKey(JSONdictionary, \"activity\");\nactivityListComponents = Dictionary.Components(activityList);\nactivityListKeys = Dictionary.ValueAtKey(activityListComponents, \"keys\");\nactivityItem = List.GetItemAtIndex(activityListKeys, ActivityItem);\nactivityItemDetails = Dictionary.ValueAtKey(activityList, activityItem);\nactivityItemPeriod = Dictionary.ValueAtKey(activityItemDetails, \"period\");\nactivityItemDescription = Dictionary.ValueAtKey(activityItemDetails, \"description\");\nactivityItemURL = Dictionary.ValueAtKey(activityItemDetails, \"url\");\nactivityImageURL = Dictionary.ValueAtKey(activityItemDetails, \"imageURL\");\n\ncount = List.Count(activityListKeys);\n\nreturn = [activityItem, activityItemPeriod, activityItemDescription, activityItemURL, activityImageURL];\n};",
+      "Id": "ad58482025cf43ec8c8232f8d4ac8638",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* This function will require 3 pieces of text to\noutput a sentance describing my activity\n*/\n\ndef FunctionSecondStatement(text0, text1, text2)\n{\n\nsecondStatement = String.Join(\" | \", [text0, text1, text2]);\ncomment = [\"There are 5 items in my portfolio. Change Slider to view a different item below\"];\n\nreturn = [\"=> PORTFOLIO:\", comment, secondStatement];\n};",
+      "Id": "3a06e3bec2de4cb6b1a178b60250baf0",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "// Copyright(c) 2022, Dragos Milotin\n// @milotindragos\n\n// Retrieve the JSON file and transform it into a Dictionary\nJSON = Parse.String(JSONserver);\nJSONdictionary = JsonObject.ToDictionary(JSON);\n\n// Retrieve activity\nact = GetActivityItem (JSONdictionary, ActivityItem);\nstatementActivityItem = [FunctionSecondStatement(act[0], act[1], act[2])];\nact[3];\nact[4];",
+      "Id": "1211cf033277456bbb31b9e68a5eb807",
+      "Inputs": [
+        {
+          "Id": "974a8411f7f443878bf415ee20b4fe3f",
+          "Name": "JSONserver",
+          "Description": "JSONserver",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1e8adffe9577455f8aa2be8fcd3305eb",
+          "Name": "ActivityItem",
+          "Description": "ActivityItem",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b3498f370b804e10af372350118410d5",
+          "Name": "",
+          "Description": "JSON",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4a0b3e4dd11447e88b5bde1fec8047a6",
+          "Name": "",
+          "Description": "JSONdictionary",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4699511d02f94f738b8ebf7c391136dd",
+          "Name": "",
+          "Description": "act",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "10af1797ebdb443dbc21b05e246090fa",
+          "Name": "",
+          "Description": "statementActivityItem",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "87395e9b15084b1f9ae9612072519e03",
+          "Name": "",
+          "Description": "Value of expression at line 11",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "880cb8fa02a442d4b87c3fd1c609ff03",
+          "Name": "",
+          "Description": "Value of expression at line 12",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* Step 01: In order to keep the file readable I have used the `Code Block\nFunctions` feature to split the code into `Components`\n*/;",
+      "Id": "d267156c728147e4938c6b0ccb2c7900",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* Step 02: The review this dynamic portfolio user input is required in order to\nview different sections. This section also coveres the `REST request` to a server\nto get the portfolio data in JSON format\n*/;",
+      "Id": "f52587369ea94bd5a547aacd678e45f8",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* Step 04: This is a Code Block that processes the JSON file and retrieves\nproject data (text, imagest and URL);\n*/;",
+      "Id": "f23827939cd845c5800cd9bb87345454",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* Step 03.1: Please make sure that the `Preview` of the node bellow is\nturned on to review its output\n*/;\n/* Step 03.2: This is the main Code Block that processes the JSON file taking\nadvantage of the structured data format this file format gives\n*/;",
+      "Id": "16144c8c0d7a42c0bb5da96147d26ec1",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* Step 00: In order for this dynamic portfolio to work certain `dependecies`\nare required:\n\n=> `Python 2.7` needs to be installed in `Dynamo Core 2.0` folder such as:\n\timport sys\n\tsys.path.append(r'C:\\Program Files (x86)\\IronPython 2.7\\Lib')\n\n=> `JsonData Dynamo Package` by `alvpickmans` needs to be accesible in\n`Dynamo Core 2.0`: https://github.com/alvpickmans/JsonData\n\n*/;",
+      "Id": "f28fc2cc666b4060a9b0c759e32c5807",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "3a7675cd19a04a80bc2cd32cbb2f152c",
+      "Inputs": [
+        {
+          "Id": "b667bd99250840508c3096677c2ea5aa",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f675cf70eb9d4d9abcdec179786723dd",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "703e0407758e4b0c9e452e60aed8b2b3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "cd6232cf8ad14dc59b0c9d53ce767981",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "/* Step 05: This `Python Scipt` is used to\ndisplay the `Portfolio` in a more `graphical` way using `Win.Forms`\n\nDo not forget to change the `Activity Items Slider` to get a new item\n*/;",
+      "Id": "654d8212b24142aa92924f3b26b7e587",
+      "Inputs": [],
+      "Outputs": [],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "message[0][2];\nimageURL;\nportfolioItemURL;",
+      "Id": "9d1287335c1a46cdab927d4b50d644a0",
+      "Inputs": [
+        {
+          "Id": "62c29b60cdb844d5bb679d2c2f97d661",
+          "Name": "message",
+          "Description": "message",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "53702bab8b89417cab534f780256a54c",
+          "Name": "imageURL",
+          "Description": "imageURL",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ec19825df0b1405581eec27c969c0b59",
+          "Name": "portfolioItemURL",
+          "Description": "portfolioItemURL",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "abe11d5da2ba4826ba1dee81c36cb7b5",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "34e424c2221642569fe8c2eff3690cf3",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c8b13be4c69f4ede840e21ee4c23a5e5",
+          "Name": "",
+          "Description": "Value of expression at line 3",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "// Copyright(c) 2022, Dragos Milotin\n// @milotindragos\n\n// Retrieve the JSON file and transform it into a Dictionary\nJSON = Parse.String(JSONserver);\nJSONdictionary = JsonObject.ToDictionary(JSON);\n\n// Retrieve name\nname = Dictionary.ValueAtKey(JSONdictionary, \"name\");\nstatementName = String.Join(\" \", [\"Hello, my name is\", name]);\n\n// Retrieve introduction\nworking = Dictionary.ValueAtKey(JSONdictionary, \"working\");\nstatementWork = String.Join(\" \", [\"I have been\", working]);\n\n// Retrieve this.description\nthisDescription = Dictionary.ValueAtKey(JSONdictionary, \"this\");\n\n// Retrieve certifications\ncertif = Dictionary.ValueAtKey(JSONdictionary, \"certifications\");\ncertifList = Dictionary.Values(certif);\n\n// Retrieve skills\ndef f_skills(dict, proficiency){return GetSkillsFilteredList(dict, proficiency);\n};\n\nstatementSkillsBeginner = f_skills(JSONdictionary, \"beginner\");\nstatementSkillsIntermediate = f_skills(JSONdictionary, \"intermediate\");\nstatementSkillsAdvanced = f_skills(JSONdictionary, \"advanced\");\n\n// Final Presentation\ndef f_skills_card(title, skillLevel){return [\"=> SKILLS:\" + \" @\" + title + \" level\", skillLevel];\n};\n\nintro = [\"=> INTRODUCTION:\", statementName, statementWork, thisDescription];\nskillsB = f_skills_card(\"Begginer\", statementSkillsBeginner);\nskillsI = f_skills_card(\"Intermediate\", statementSkillsIntermediate);\nskillsA = f_skills_card(\"Advanced\", statementSkillsAdvanced);\ncertifications = List.Flatten([\"=> CERTIFICATIONS:\", List.Sort(certifList)]);\nmessage = [\"=> END:\", \"Thank you for taking the time to review my portfolio and I hope to hear from you soon\"];\n\n// Output Test Presentation\nOUT = List.Flatten([intro, \" \", skillsB, \" \", skillsI, \" \", skillsA, \" \",certifications, \" \", message]);",
+      "Id": "d9fa02b025124f8e9907fe8217e8744e",
+      "Inputs": [
+        {
+          "Id": "0a608f76cdf24635bc77bcf9778f2a48",
+          "Name": "JSONserver",
+          "Description": "JSONserver",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7df33cb7327b43f48f72642e4dbc7b23",
+          "Name": "",
+          "Description": "JSON",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5230487dd6c34277b83e1e11d296adec",
+          "Name": "",
+          "Description": "JSONdictionary",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3b18238d65994a1083af3901884d3154",
+          "Name": "",
+          "Description": "name",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "51f457e7fa544808b700759f2558979a",
+          "Name": "",
+          "Description": "statementName",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "536b56c286ef48058507e72847d8dd1b",
+          "Name": "",
+          "Description": "working",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "4c2b44846a004c178c600cf26013289c",
+          "Name": "",
+          "Description": "statementWork",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7b076423936141cd98f2e4555facec62",
+          "Name": "",
+          "Description": "thisDescription",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6d8145bbc0574b1e92e19ddccc49f474",
+          "Name": "",
+          "Description": "certif",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "de58ca345f034c50a0eb5c915dafae69",
+          "Name": "",
+          "Description": "certifList",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "238ce799ac66443f9fdca7977acc9017",
+          "Name": "",
+          "Description": "statementSkillsBeginner",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e7f9a859eeb34fa8af06ed17d45f8df6",
+          "Name": "",
+          "Description": "statementSkillsIntermediate",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3fa9677f8e2e4f8485c808692cc4af3d",
+          "Name": "",
+          "Description": "statementSkillsAdvanced",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "874444bf4d174935a8b95dac2cc24a66",
+          "Name": "",
+          "Description": "intro",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bb6d166f3065404393653a90b54d94a6",
+          "Name": "",
+          "Description": "skillsB",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ab824c6a73e948b38fa9d51951196181",
+          "Name": "",
+          "Description": "skillsI",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "711819d415ea4f499d286e78a022473f",
+          "Name": "",
+          "Description": "skillsA",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6c029eb5deb94443bee8717190ff044a",
+          "Name": "",
+          "Description": "certifications",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "b5401a2c5548457c9a45c2a9c084ea84",
+          "Name": "",
+          "Description": "message",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "59068b4fa1874a819d1a58b8b4ea932a",
+          "Name": "",
+          "Description": "OUT",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"<= Turn on preview (pin icon)!\";",
+      "Id": "5b394cdb7ea744e9865316d5316ed5c4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "797a21508618457da27aa945a96f0cb6",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "156d1b22ee2b4a28885e5852d59879b9",
+      "End": "1e8adffe9577455f8aa2be8fcd3305eb",
+      "Id": "bf854c9a43294375b432cdbbbe582ba5"
+    },
+    {
+      "Start": "0dc319a35f704e18a5d3d3e8046dd725",
+      "End": "0a608f76cdf24635bc77bcf9778f2a48",
+      "Id": "7c465fc342dd4fcb8c2627e6384fbc94"
+    },
+    {
+      "Start": "0dc319a35f704e18a5d3d3e8046dd725",
+      "End": "974a8411f7f443878bf415ee20b4fe3f",
+      "Id": "848e8d49c65b46bbb8d4ec804235c282"
+    },
+    {
+      "Start": "4cf1400099cf49c0803014fc95d0acfe",
+      "End": "b667bd99250840508c3096677c2ea5aa",
+      "Id": "35c06e5bc88e475ba4a4f6aa2818fd61"
+    },
+    {
+      "Start": "10af1797ebdb443dbc21b05e246090fa",
+      "End": "62c29b60cdb844d5bb679d2c2f97d661",
+      "Id": "5fceecb93c174734a17add627de42ecc"
+    },
+    {
+      "Start": "87395e9b15084b1f9ae9612072519e03",
+      "End": "ec19825df0b1405581eec27c969c0b59",
+      "Id": "30951c394b6848cea2dacff912602732"
+    },
+    {
+      "Start": "880cb8fa02a442d4b87c3fd1c609ff03",
+      "End": "53702bab8b89417cab534f780256a54c",
+      "Id": "4a13dda951064bc2a5d5a545f3d727aa"
+    },
+    {
+      "Start": "cd6232cf8ad14dc59b0c9d53ce767981",
+      "End": "549987c58fcf468e8026c5beb0c11fc9",
+      "Id": "24d72061894c4d638caa640585fa5a55"
+    },
+    {
+      "Start": "abe11d5da2ba4826ba1dee81c36cb7b5",
+      "End": "a92de6c1b6a14bf98716f6d100648861",
+      "Id": "978265266cf14313bcaa05412bf16ba0"
+    },
+    {
+      "Start": "34e424c2221642569fe8c2eff3690cf3",
+      "End": "8dd4703fbe9845a8b15c839a354bac3d",
+      "Id": "439f4c46924a4fd88ba53a3d7be464da"
+    },
+    {
+      "Start": "c8b13be4c69f4ede840e21ee4c23a5e5",
+      "End": "21f2605203214b678c79567d5d8a1736",
+      "Id": "bd9d447ad8b1483886cf0aab489bc59d"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.3.2.15696",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 35.033180388636211,
+      "EyeY": 32.502190609234219,
+      "EyeZ": -9.4217841590555089,
+      "LookX": -5.0373642013192494,
+      "LookY": -20.832611096273673,
+      "LookZ": -0.32481318597224274,
+      "UpX": -0.896931362693581,
+      "UpY": 0.43837114678907957,
+      "UpZ": -0.057834836210299272
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "REST GET Requests: Change slider to see activity items",
+        "Id": "790ccf2a1f264d2187c04099fff07667",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 798.85775961629338,
+        "Y": 10861.655050677165
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GET JSON FROM SERVER",
+        "Id": "d7818ac3bba24ab6b41f4c42e8788b09",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 435.24320906806611,
+        "Y": 9262.9508047097952
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Full Page Portfolio",
+        "Id": "c6cf72a803b44ea5a0a9c053dca6641c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2483.4154249266189,
+        "Y": 10711.580222123062
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "9bf859d44f024e41b288c094bfe17e6d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -365.13796445039316,
+        "Y": 9162.0413264218078
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "ad58482025cf43ec8c8232f8d4ac8638",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -362.67554831899361,
+        "Y": 9981.0246554530368
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "3a06e3bec2de4cb6b1a178b60250baf0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -362.14102704558854,
+        "Y": 10432.208053115608
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "1211cf033277456bbb31b9e68a5eb807",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1243.7565112782631,
+        "Y": 10653.760350061586
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "d267156c728147e4938c6b0ccb2c7900",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -336.56407944252851,
+        "Y": 9035.60187117912
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "f52587369ea94bd5a547aacd678e45f8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 434.04456938083604,
+        "Y": 9020.7367065915314
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "f23827939cd845c5800cd9bb87345454",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1249.6585407947582,
+        "Y": 10497.715210421668
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "16144c8c0d7a42c0bb5da96147d26ec1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1256.311255033198,
+        "Y": 8990.5391190100163
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "f28fc2cc666b4060a9b0c759e32c5807",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -1129.8535478030471,
+        "Y": 9033.42078285538
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "3a7675cd19a04a80bc2cd32cbb2f152c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2703.7150519807046,
+        "Y": 10684.132291582
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "What to see something cool?",
+        "Id": "703e0407758e4b0c9e452e60aed8b2b3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 799.90585560494776,
+        "Y": 10714.728662398244
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "654d8212b24142aa92924f3b26b7e587",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2103.6600358206606,
+        "Y": 10483.650570381225
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "9d1287335c1a46cdab927d4b50d644a0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2120.9212427517509,
+        "Y": 10807.097753960319
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "d9fa02b025124f8e9907fe8217e8744e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1254.9628758150061,
+        "Y": 9179.70266797482
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "5b394cdb7ea744e9865316d5316ed5c4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2053.0157754212983,
+        "Y": 9992.1365397698137
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "97e2e4c0e2d24d36a4110ea6de9e0563",
+        "Title": "STEP 01",
+        "Nodes": [
+          "d267156c728147e4938c6b0ccb2c7900"
+        ],
+        "Left": -346.56407944252851,
+        "Top": 8982.60187117912,
+        "Width": 641.0,
+        "Height": 173.0,
+        "FontSize": 36.0,
+        "InitialTop": 9035.60187117912,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "67e0224ddd434160bc616ac48482503c",
+        "Title": "STEP 02",
+        "Nodes": [
+          "f52587369ea94bd5a547aacd678e45f8"
+        ],
+        "Left": 424.04456938083604,
+        "Top": 8967.7367065915314,
+        "Width": 699.0,
+        "Height": 190.0,
+        "FontSize": 36.0,
+        "InitialTop": 9020.7367065915314,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "8da8a94bdf644a65a2ea535dab5faa67",
+        "Title": "STEP 04",
+        "Nodes": [
+          "f23827939cd845c5800cd9bb87345454"
+        ],
+        "Left": 1239.6585407947582,
+        "Top": 10444.715210421668,
+        "Width": 650.0,
+        "Height": 173.0,
+        "FontSize": 36.0,
+        "InitialTop": 10497.715210421668,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "392802811741443ab2d20b3ff985be54",
+        "Title": "STEP 03",
+        "Nodes": [
+          "16144c8c0d7a42c0bb5da96147d26ec1"
+        ],
+        "Left": 1246.311255033198,
+        "Top": 8937.5391190100163,
+        "Width": 666.0,
+        "Height": 225.0,
+        "FontSize": 36.0,
+        "InitialTop": 8990.5391190100163,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF71C6A8"
+      },
+      {
+        "Id": "3ea9af5421494a989bcd0dc4d3afcea8",
+        "Title": "STEP 00",
+        "Nodes": [
+          "f28fc2cc666b4060a9b0c759e32c5807"
+        ],
+        "Left": -1139.8535478030471,
+        "Top": 8980.42078285538,
+        "Width": 666.0,
+        "Height": 313.0,
+        "FontSize": 36.0,
+        "InitialTop": 9033.42078285538,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "bf2aa0b1b8bd4abeaeae9fb51f73577f",
+        "Title": "STEP 05",
+        "Nodes": [
+          "654d8212b24142aa92924f3b26b7e587"
+        ],
+        "Left": 2093.6600358206606,
+        "Top": 10430.650570381225,
+        "Width": 600.0,
+        "Height": 208.0,
+        "FontSize": 36.0,
+        "InitialTop": 10483.650570381225,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "876f0d2e89e64ff8943f38af7cbe4b94",
+        "Title": "Toggle me!",
+        "Nodes": [
+          "703e0407758e4b0c9e452e60aed8b2b3"
+        ],
+        "Left": 789.90585560494776,
+        "Top": 10661.728662398244,
+        "Width": 210.0,
+        "Height": 121.0,
+        "FontSize": 36.0,
+        "InitialTop": 10714.728662398244,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "c4e723722c07473ea874c6f59c12b029",
+        "Title": "DATA",
+        "Nodes": [
+          "d7818ac3bba24ab6b41f4c42e8788b09"
+        ],
+        "Left": 425.24320906806611,
+        "Top": 9209.9508047097952,
+        "Width": 179.0,
+        "Height": 146.0,
+        "FontSize": 36.0,
+        "InitialTop": 9262.9508047097952,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      },
+      {
+        "Id": "4e059164e9544aaa8539d0d1dbd81416",
+        "Title": "USER INPUT",
+        "Nodes": [
+          "790ccf2a1f264d2187c04099fff07667"
+        ],
+        "Left": 788.85775961629338,
+        "Top": 10808.655050677165,
+        "Width": 369.0,
+        "Height": 121.0,
+        "FontSize": 36.0,
+        "InitialTop": 10861.655050677165,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FFFF7BAC"
+      }
+    ],
+    "X": 1634.6101829603972,
+    "Y": -12054.925281184709,
+    "Zoom": 1.3563226246868743
+  }
+}
